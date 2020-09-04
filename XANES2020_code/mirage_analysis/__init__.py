@@ -23,3 +23,4 @@ def configure(base_path):
 
 # add an item for each diagnostic below...
 register_data_loader('ESpec_high', ImageDataLoader)
+register_data_loader('Lundatron', ImageDataLoader)
