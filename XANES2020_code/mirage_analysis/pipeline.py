@@ -32,6 +32,8 @@ class DataPipeline:
      * map function: a one-argument callable that processes the loaded data
      * reduce function: a callable that combines the data from a single burst,
        or None to concatenate all shots together
+    
+        update: added single_shot_mode argument to handle runs containing only data files
     """
 
     def __init__(self, diag_name: str, map_func=lambda x: x, reduce_func=None, single_shot_mode=False):
@@ -56,6 +58,7 @@ class DataPipeline:
             in interactive programs.
          * use_pandas: if True, return a pandas.Series instead of an (ids, data)
            pair. This only works if the data is 1-dimensional
+
         """
 
         data_ids, paths = self.list_data(run_name, burst_num)
@@ -120,6 +123,8 @@ class DataPipeline:
 
         Returns a pair of lists. The first contains data ids (shot numbers or
         burst/shot number pairs). The second contains paths.
+
+        Added single shot mode handling
         """
 
         info = []
@@ -167,6 +172,8 @@ class DataPipeline:
             yield shot, os.path.join(path, name)
 
     def _enumerate_single_shots(self, path):
+        """ Modfied from _enumerate_burst to handle single shot mode
+        """
         #path = os.path.join(base_path, f'Burst{burst_num}')
         extensions = self.data_loader.extensions
 

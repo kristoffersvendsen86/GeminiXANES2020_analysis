@@ -7,6 +7,17 @@ from scipy.io import loadmat
 from scipy.interpolate import interp1d
 
 class ESpec_high_proc():
+    """ Object for handling espec_high analysis
+        hardcoded fC_per_count value from rough calibration by Matt on 28th August 2020
+        args 
+            tForm_filepath is the path of the image warp cv2 perspective transform
+                contains x_mm and y_mm which are the real spatial axes of the un-warped image
+            Espec_cal_filepath is the conversion from x_mm to energy in MeV 
+        kwargs:
+            img_bkg = can be an espec_high image or a single value or None to disable this subtraction method
+            use_median = boolean, if True then the median value will be subtracted from the raw image (crude background noise subtraction)
+            kernel_size = (int,int) or None: used for median 2d filter 
+    """
     fC_per_count = 0.0012019877034770447
     def __init__(self,tForm_filepath,Espec_cal_filepath,img_bkg=None,use_median=True,kernel_size=None ):
         # warping info
@@ -43,7 +54,8 @@ class ESpec_high_proc():
         
 
     def espec_warp(self,img_raw):
-        # calc transformed image
+        """ calc transformed image using tForm file and cv2 perspective transform
+        """ 
         img = self.espec_background_sub(img_raw)
 
         with np.errstate(divide='ignore'):
@@ -57,16 +69,25 @@ class ESpec_high_proc():
         return im_out
 
     def espec_file2sceen(self,file_path):
+        """ Takes a data file and returns the screen signal (using perspective transform)
+        should be in real units of pC per mm^2
+        """
         img_raw = plt.imread(file_path)
         img_pC_permm2 = self.espec_data2screen(img_raw)
         return img_pC_permm2
 
     def espec_data2screen(self,img_raw):
+        """ Takes raw data (previous opened from data file) and returns the screen signal (using perspective transform)
+        should be in real units of pC per mm^2
+        """
+
         img_warp= self.espec_warp(img_raw)
         img_pC_permm2 = img_warp*self.fC_per_count/self.imgArea1 *1e-3
         return img_pC_permm2
 
     def espec_background_sub(self,img_raw):
+        """ background subtraction method
+        """
         if self.img_bkg is None:
             img_sub = img_raw
         else:
@@ -81,16 +102,23 @@ class ESpec_high_proc():
         return img_sub
 
     def espec_screen2spec(self,img_screen):
+        """ convert image to spectrum
+        Uses 1d interpolation along horrizontal axis (1)
+        """
         spec = img_screen*self.dispersion
         spec_func = interp1d(self.screen_energy,spec, bounds_error=False, fill_value=0)
         spec_pC_per_mm_per_MeV = spec_func(self.eAxis_MeV)
         return spec_pC_per_mm_per_MeV
 
     def total_charge(self,img_raw):
+        """ Integrates the screen image to get the total charge
+        """
         img_pC_permm2 = self.espec_data2screen(img_raw)
         return np.sum(img_pC_permm2)*self.screen_dx*self.screen_dy
 
     def total_beam_energy(self,img_raw):
+        """ Integrates the spectrum to get total beam energy
+        """
         img_pC_permm2 = self.espec_data2screen(img_raw)
         spec_pC_per_mm_per_MeV = self.espec_screen2spec(img_pC_permm2)
         W_b = np.sum(np.sum(spec_pC_per_mm_per_MeV,axis=0)*self.screen_dy*self.dE_MeV *self.eAxis_MeV*1e-12*1e6)

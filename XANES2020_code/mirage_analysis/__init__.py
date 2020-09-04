@@ -21,5 +21,5 @@ def configure(base_path):
     global BASE_PATH
     BASE_PATH = base_path
 
-
+# add an item for each diagnostic below...
 register_data_loader('ESpec_high', ImageDataLoader)
