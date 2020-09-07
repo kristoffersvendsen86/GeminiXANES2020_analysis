@@ -9,7 +9,7 @@ def base_path():
     return BASE_PATH
 
 from .pipeline import DataPipeline
-from .loader import register_data_loader, ImageDataLoader
+from .loader import register_data_loader, ImageDataLoader, LundatronLoader
 
 BASE_PATH = None
 
@@ -23,4 +23,4 @@ def configure(base_path):
 
 # add an item for each diagnostic below...
 register_data_loader('ESpec_high', ImageDataLoader)
-register_data_loader('Lundatron', ImageDataLoader)
+register_data_loader('Lundatron', LundatronLoader)

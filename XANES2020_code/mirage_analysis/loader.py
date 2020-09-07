@@ -1,5 +1,6 @@
 from skimage.io import imread
 import numpy
+from PIL import Image
 
 DATA_LOADER_REGISTRY = {}
 
@@ -63,4 +64,10 @@ class TraceDataLoader:
     @classmethod
     def load_data(cls, path):
         return numpy.genfromtxt(path, delimiter=',', skip_header=3)
+
+class LundatronLoader:
+    extensions = ['tif']
+    @classmethod
+    def load_data(cls, path):
+        return numpy.array(Image.open(path)).astype(float)
         

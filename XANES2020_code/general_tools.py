@@ -1,5 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pickle
+
+def save_object(obj, filename):
+    with open(filename, 'wb') as output:  # Overwrites any existing file.
+        pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
+
+def load_object(filename):
+    with open(filename, 'rb') as fid:
+        return pickle.load(fid)
 
 def imagesc(I,ax = None,  x=None, y=None, **kwargs):
     """ display image with axes using pyplot
