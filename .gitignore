@@ -127,4 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-*.pkl
+
+# specific files
+XANES2020_code/paths.py
+Notebooks/*
+.DS_Store
