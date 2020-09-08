@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # specific files
-#XANES2020_code/paths.py
+XANES2020_code/paths.py
 Notebooks/*
