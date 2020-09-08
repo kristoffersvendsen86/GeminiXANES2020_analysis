@@ -8,10 +8,11 @@ If the transport line transmission changes, this also needs to be changed in thi
 
 @author: Kristoffer Svendsen
 """
-from rossSetup import *
+from XANES2020_code.rossFilterAnalysis.rossSetup import *
 import numpy as np
 import pandas as pd
 from scipy.special import kv
+
 
 # constants
 h=6.62607004e-34;
