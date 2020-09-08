@@ -6,8 +6,7 @@ import matplotlib.pyplot as plt
 from scipy.io import loadmat
 from scipy.interpolate import interp1d
 
-from XANES2020_code import Espec, PKG_DATA
-
+from XANES2020_code import Espec
 class ESpec_high_proc():
     """ Object for handling espec_high analysis
         hardcoded fC_per_count value from rough calibration by Matt on 28th August 2020

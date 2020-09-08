@@ -3,4 +3,8 @@
 # then uncomment it and copy this file to paths.py
 
 # DATA_FOLDER = r'E:\Streeter2019'
-DATA_FOLDER = r'/Users/streeter/BoxSync/Experiments/2019_TA2_Streeter/MIRAGE'
+import os
+DATA_FOLDER = r'/Users/streeter/BoxSync/Experiments/GeminiXANES2020/MIRAGE'
+
+# path for calibrations assumed as relative to DATA_FOLDER ../ProcessedCalibrations
+CAL_DATA = os.path.join(os.path.split(DATA_FOLDER[:-1])[0],'ProcessedCalibrations')

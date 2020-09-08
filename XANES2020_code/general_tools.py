@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pickle, os
 from datetime import datetime
-from XANES2020_code import PKG_DATA
+from XANES2020_code.paths import CAL_DATA
 from glob import glob
 
 def save_object(obj, filename):
@@ -66,7 +66,7 @@ def choose_cal_file(run_name,shot,diag,file_pref):
 
 def get_cal_files(diag,file_pref):
     
-    cal_paths =  glob(os.path.join(PKG_DATA,diag,file_pref+'*'))
+    cal_paths =  glob(os.path.join(CAL_DATA,diag,file_pref+'*'))
 
     return cal_paths
 
