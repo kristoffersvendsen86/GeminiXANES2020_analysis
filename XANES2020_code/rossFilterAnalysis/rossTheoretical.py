@@ -8,14 +8,14 @@ If the transport line transmission changes, this also needs to be changed in thi
 
 @author: Kristoffer Svendsen
 """
-from rossSetup import *
+from XANES2020_code.rossFilterAnalysis.rossSetup import *
 import numpy as np
 import pandas as pd
 import os
 from scipy.special import kv
 from pathlib import Path
-
-rossPath = Path(os.path.dirname(os.path.realpath(__file__)))
+from XANES2020_code import PKG_DATA
+rossPath = Path(os.path.join(PKG_DATA,'rossFilterAnalysis'))
 
 
 # constants

@@ -15,14 +15,14 @@ The results from this script should be within 10 % of the more accurate (but slo
 """
 import os, sys
 
-rossPath = os.path.dirname(os.path.realpath(__file__))
-if rossPath not in sys.path:
-    sys.path.append(rossPath)
+# rossPath = os.path.dirname(os.path.realpath(__file__))
+# if rossPath not in sys.path:
+#     sys.path.append(rossPath)
 
-from rossSetup import *
+from XANES2020_code.rossFilterAnalysis.rossSetup  import *
 import numpy as np
 from scipy import interpolate
-from rossTheoretical import Tth, Ec, QE_data, camResp, Ttotal, E
+from XANES2020_code.rossFilterAnalysis.rossTheoretical import Tth, Ec, QE_data, camResp, Ttotal, E
 from scipy.special import kv
 
 import matplotlib.pyplot as plt

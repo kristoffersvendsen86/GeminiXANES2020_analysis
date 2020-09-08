@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 from scipy.io import loadmat
 from scipy.interpolate import interp1d
 
+from XANES2020_code import Espec, PKG_DATA
+
 class ESpec_high_proc():
     """ Object for handling espec_high analysis
         hardcoded fC_per_count value from rough calibration by Matt on 28th August 2020
@@ -123,5 +125,3 @@ class ESpec_high_proc():
         spec_pC_per_mm_per_MeV = self.espec_screen2spec(img_pC_permm2)
         W_b = np.sum(np.sum(spec_pC_per_mm_per_MeV,axis=0)*self.screen_dy*self.dE_MeV *self.eAxis_MeV*1e-12*1e6)
         return W_b
-
-
