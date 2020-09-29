@@ -122,7 +122,7 @@ def rossTheoretical(calib):
     
     #Photon number distribution at critical energy, i, (synchrotron-like)
     for i in Ec:
-        dNdE.append( (E/i)**2 * kv(2/3, (E/i)/2)**2 /np.trapz(  (E/i)**2 *kv(2/3, (E/i)/2)**2 ,E)  );
+        dNdE.append( (E/i) * kv(2/3, (E/i)/2)**2 /np.trapz(  (E/i)**2 *kv(2/3, (E/i)/2)**2 ,E)  );
         
     #convert to np arrays and squeeze the empty dimensions
     dNdE=np.array(dNdE);
